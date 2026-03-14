@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Timbal AI · Off-Site Égat 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;1,6..72,300;1,6..72,400&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#111110;--text:#E8E6DF;--mid:#918F88;--faint:#5C5B56;--line:#2A2926;--line-light:#1E1D1B;--accent:#E8654E;--purple:#9B8FFF;--teal:#4DCBA5;--blue:#6BA8E8;--amber:#E8B04A;--r:8px}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--text);font-size:12px;line-height:1.5;-webkit-font-smoothing:antialiased}
+.page{max-width:1120px;margin:0 auto;padding:0 28px 40px}
+
+header{padding:32px 0 18px;border-bottom:1px solid var(--line)}
+header .kicker{font-size:9px;font-weight:500;letter-spacing:1.2px;text-transform:uppercase;color:var(--faint);margin-bottom:6px}
+header h1{font-family:'Newsreader',Georgia,serif;font-size:24px;font-weight:400;line-height:1.2;letter-spacing:-0.3px}
+header h1 em{font-style:normal;font-weight:600;color:var(--text)}
+header .meta{display:flex;gap:4px 20px;margin-top:8px;flex-wrap:wrap}
+header .meta span{font-size:10px;color:var(--mid)}
+header .meta span b{font-weight:500;color:var(--text)}
+header .meta a{color:var(--text);text-decoration:underline;text-underline-offset:2px;text-decoration-color:var(--faint);transition:text-decoration-color .15s}
+header .meta a:hover{text-decoration-color:var(--text)}
+
+.info-row{display:flex;gap:20px;padding:14px 0;border-bottom:1px solid var(--line)}
+.info-row .info{flex:1;padding:0;border:none}
+.info{padding:14px 0;border-bottom:1px solid var(--line)}
+.info h3{font-size:9px;font-weight:600;letter-spacing:0.8px;text-transform:uppercase;color:var(--faint);margin-bottom:6px}
+.info p{font-size:11px;color:var(--mid);line-height:1.5}
+.info p+p{margin-top:4px}
+.info strong{font-weight:500;color:var(--text)}
+
+.route-flow{display:flex;align-items:center;gap:4px;margin:6px 0;flex-wrap:wrap}
+.route-flow span{font-size:10px;font-weight:500}
+.route-flow .arr{color:var(--faint);font-size:8px}
+.route-flow .stop{color:var(--teal)}
+
+.grocery-row{display:flex;gap:6px;margin-top:8px}
+.grocery-opt{flex:1;padding:6px 8px;border:1px solid var(--line);border-radius:5px;font-size:10px;line-height:1.35;color:var(--mid)}
+.grocery-opt.rec{border-color:var(--teal);background:#0E2820}
+.grocery-opt h4{font-size:10px;font-weight:600;color:var(--text);margin-bottom:1px}
+.grocery-opt.rec h4{color:var(--teal)}
+
+.note{font-size:10px;color:var(--mid);background:var(--line-light);border-radius:4px;padding:5px 8px;margin-top:6px;line-height:1.4}
+
+.days-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px;margin-top:20px}
+
+.day{padding-top:0}
+.day-head{display:flex;align-items:baseline;gap:6px;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--line)}
+.day-label{font-size:8.5px;font-weight:600;letter-spacing:0.8px;text-transform:uppercase;padding:2px 6px;border-radius:6px}
+.day-fri .day-label{background:#2E1814;color:var(--accent)}
+.day-sat .day-label{background:#1F1B3D;color:var(--purple)}
+.day-sun .day-label{background:#0E2820;color:var(--teal)}
+.day-title{font-family:'Newsreader',Georgia,serif;font-size:15px;font-weight:400;letter-spacing:-0.2px}
+
+.tl{position:relative;padding-left:14px;margin-left:3px;border-left:1px solid var(--line)}
+.tl-item{position:relative;padding:0 0 10px}
+.tl-item:last-child{padding-bottom:0}
+.tl-item::before{content:'';position:absolute;left:-18px;top:3px;width:5px;height:5px;border-radius:50%;background:var(--line)}
+.tl-item.active::before{background:var(--accent)}
+.tl-time{font-size:9px;font-weight:500;color:var(--faint);letter-spacing:0.2px}
+.tl-name{font-size:11.5px;font-weight:500;margin-top:1px}
+.tl-desc{font-size:10px;color:var(--mid);margin-top:1px;line-height:1.4}
+.tl-tags{display:flex;gap:3px;margin-top:3px}
+.tag{font-size:8px;font-weight:500;padding:1px 5px;border-radius:6px;letter-spacing:0.2px}
+.t-log{background:#1E1D1B;color:#7A7974}
+.t-str{background:#1F1B3D;color:var(--purple)}
+.t-prd{background:#141F2E;color:var(--blue)}
+.t-cul{background:#0E2820;color:var(--teal)}
+.t-fun{background:#2A2010;color:var(--amber)}
+.t-opt{background:#2E1814;color:var(--accent)}
+
+.tl-session .tl-name{color:var(--text);font-weight:500}
+
+.checks{padding:20px 0;border-top:1px solid var(--line);margin-top:24px}
+.checks h3{font-size:10px;font-weight:600;letter-spacing:0.8px;text-transform:uppercase;color:var(--faint);margin-bottom:10px}
+.chk{display:flex;align-items:flex-start;gap:7px;padding:4px 0;font-size:11.5px;color:var(--mid);line-height:1.4;cursor:pointer;user-select:none}
+.chk input{display:none}
+.chk .box{width:13px;height:13px;border:1.5px solid var(--line);border-radius:3px;flex-shrink:0;margin-top:1px;transition:all .15s;display:flex;align-items:center;justify-content:center}
+.chk input:checked+.box{background:var(--teal);border-color:var(--teal)}
+.chk input:checked+.box::after{content:'✓';color:#fff;font-size:8px;font-weight:700}
+.chk input:checked~.lbl{text-decoration:line-through;color:var(--faint)}
+
+footer{text-align:center;padding:20px 0 0;border-top:1px solid var(--line);margin-top:20px;font-size:10px;color:var(--faint)}
+footer span{font-weight:500;color:var(--mid)}
+
+@media(max-width:700px){.days-grid{grid-template-columns:1fr}.grocery-row{flex-direction:column}header .meta{gap:6px 14px}}
+@media print{body{background:#111110;-webkit-print-color-adjust:exact;print-color-adjust:exact}@page{size:A4 landscape;margin:12mm}}
+</style>
+</head>
+<body>
+<div class="page">
+
+<header>
+  <div class="kicker">Off-site 2026</div>
+  <h1>Timbal AI <em>Off-site</em></h1>
+  <div class="meta">
+    <span><b>Dates</b> 27 – 29 de març 2026</span>
+    <span><b>Lloc</b> Égat, Pirineus · <a href="https://www.airbnb.cat/rooms/983299549099110623" target="_blank">veure xalet ↗</a></span>
+    <span><b>Equip</b> 11 persones</span>
+    <span><b>Check-in</b> a partir de les 15:00</span>
+    <span><b>Check-out</b> abans de les 11:00</span>
+  </div>
+</header>
+
+<div class="info-row">
+<div class="info">
+  <h3>Ruta</h3>
+  <div class="route-flow">
+    <span>Barcelona</span><span class="arr">→</span>
+    <span>C-16</span><span class="arr">→</span>
+    <span>Túnel del Cadí</span><span class="arr">→</span>
+    <span class="stop">Puigcerdà 🛒</span><span class="arr">→</span>
+    <span>Égat</span>
+  </div>
+  <p><strong>Trànsit:</strong> Divendres tarda la C-16 s'emboteix a Berga. Sortir 16:30 com a molt tard. ~3h amb trànsit. Alternativa: C-17 via Vic → Túnel de Toses, evita Berga però és més revirada.</p>
+</div>
+
+<div class="info">
+  <h3>Compra</h3>
+  <div class="grocery-row">
+    <div class="grocery-opt rec">
+      <h4>Carrefour Puigcerdà ✓</h4>
+      Obert fins 21:30 div. Gran i ben surtit.
+    </div>
+    <div class="grocery-opt">
+      <h4>Mercadona / Lidl (Berga)</h4>
+      Backup si trànsit. Tanquen 21:00 div.
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="days-grid">
+<!-- FRIDAY -->
+<div class="day day-fri">
+  <div class="day-head">
+    <span class="day-label">Div</span>
+    <span class="day-title">Divendres 27</span>
+  </div>
+  <div class="tl">
+    <div class="tl-item">
+      <div class="tl-time">16:30 – 17:00</div>
+      <div class="tl-name">🚗 Sortida des de l'oficina</div>
+      <div class="tl-desc">3 cotxes, 11 persones. Carpools assignats.</div>
+      <div class="tl-tags"><span class="tag t-log">logistics</span></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-time">19:30 – 20:00</div>
+      <div class="tl-name">🛒 Compra: Carrefour Puigcerdà</div>
+      <div class="tl-tags"><span class="tag t-log">logistics</span></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-time">20:30 – 21:00</div>
+      <div class="tl-name">🏔 Arribada al xalet</div>
+      <div class="tl-desc">Repartir habitacions, desfer maletes.</div>
+      <div class="tl-tags"><span class="tag t-log">logistics</span></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-time">21:00 – 22:30</div>
+      <div class="tl-name">🍽 Sopar de benvinguda</div>
+      <div class="tl-tags"><span class="tag t-fun">fun</span></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-time">22:30+</div>
+      <div class="tl-name">😴 Relax i descans</div>
+      <div class="tl-tags"><span class="tag t-fun">fun</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- SATURDAY -->
+<div class="day day-sat">
+  <div class="day-head">
+    <span class="day-label">Dis</span>
+    <span class="day-title">Dissabte 28</span>
+  </div>
+  <div class="tl">
+    <div class="tl-item">
+      <div class="tl-time">08:30 – 09:30</div>
+      <div class="tl-name">☕ Esmorzar</div>
+      <div class="tl-tags"><span class="tag t-fun">fun</span></div>
+    </div>
+    <div class="tl-item tl-session active">
+      <div class="tl-time">09:30 – 10:15</div>
+      <div class="tl-name">🎯 Opening</div>
+      <div class="tl-tags"><span class="tag t-cul">culture</span></div>
+    </div>
+    <div class="tl-item tl-session active">
+      <div class="tl-time">10:15 – 11:45</div>
+      <div class="tl-name">💡 Session 1</div>
+      <div class="tl-tags"><span class="tag t-str">strategy</span><span class="tag t-cul">culture</span></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-time">11:45 – 12:00</div>
+      <div class="tl-name" style="color:var(--faint)">☕ Pausa</div>
+    </div>
+    <div class="tl-item tl-session active">
+      <div class="tl-time">12:00 – 13:30</div>
+      <div class="tl-name">💡 Session 2</div>
+      <div class="tl-tags"><span class="tag t-str">strategy</span><span class="tag t-cul">culture</span></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-time">13:30 – 15:30</div>
+      <div class="tl-name">🍽 Dinar + temps lliure</div>
+      <div class="tl-tags"><span class="tag t-fun">fun</span></div>
+    </div>
+    <div class="tl-item tl-session active">
+      <div class="tl-time">15:30 – 17:00</div>
+      <div class="tl-name">💡 Session 3</div>
+      <div class="tl-tags"><span class="tag t-prd">product</span><span class="tag t-str">strategy</span><span class="tag t-cul">culture</span></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-time">17:00 – 17:15</div>
+      <div class="tl-name" style="color:var(--faint)">☕ Pausa</div>
+    </div>
+    <div class="tl-item tl-session active">
+      <div class="tl-time">17:15 – 18:45</div>
+      <div class="tl-name">💡 Session 4</div>
+      <div class="tl-tags"><span class="tag t-prd">product</span><span class="tag t-str">strategy</span><span class="tag t-cul">culture</span></div>
+    </div>
+    <div class="tl-item tl-session active">
+      <div class="tl-time">18:45 – 19:30</div>
+      <div class="tl-name">🎯 Closing</div>
+      <div class="tl-tags"><span class="tag t-cul">culture</span></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-time">19:30 – 20:30</div>
+      <div class="tl-name">🚿 Temps lliure + preparar sopar</div>
+      <div class="tl-tags"><span class="tag t-fun">fun</span></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-time">20:30 – 22:00</div>
+      <div class="tl-name">🔥 Sopar de dissabte</div>
+      <div class="tl-tags"><span class="tag t-fun">fun</span></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-time">22:00+</div>
+      <div class="tl-name">🍸 Jocs i gin tonics</div>
+      <div class="tl-tags"><span class="tag t-fun">fun</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- SUNDAY -->
+<div class="day day-sun">
+  <div class="day-head">
+    <span class="day-label">Diu</span>
+    <span class="day-title">Diumenge 29</span>
+  </div>
+  <div class="tl">
+    <div class="tl-item">
+      <div class="tl-time">07:00</div>
+      <div class="tl-name">☀️ Despertar</div>
+      <div class="tl-desc">Esmorzar ràpid, maletes, netejar xalet.</div>
+      <div class="tl-tags"><span class="tag t-log">logistics</span></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-time">07:30</div>
+      <div class="tl-name">🚗 Sortida cap a Grandvalira</div>
+      <div class="tl-desc">~50 min fins Pas de la Casa. Forfaits comprats online.</div>
+      <div class="tl-tags"><span class="tag t-opt">optional</span><span class="tag t-fun">fun</span></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-time">08:30 – 16:30</div>
+      <div class="tl-name">🎿 Esquí a Grandvalira</div>
+      <div class="tl-desc">Obre 08:45. Dia d'esquí complet.</div>
+      <div class="tl-tags"><span class="tag t-opt">optional</span><span class="tag t-fun">fun</span></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-time">16:30 – 17:00</div>
+      <div class="tl-name">🏠 Sortida de Pas de la Casa</div>
+      <div class="tl-desc">~3h. Pas de la Casa → Túnel del Cadí → BCN. Arribada ~20:00.</div>
+      <div class="tl-tags"><span class="tag t-log">logistics</span></div>
+    </div>
+  </div>
+  <div class="note" style="margin-top:12px"><strong>No-esquiadors:</strong> Dormir, netejar, tornar a BCN al seu ritme.</div>
+</div>
+</div><!-- /days-grid -->
+
+<footer><span>Timbal AI</span> · Off-Site Égat · 27–29 març 2026</footer>
+
+</div>
+</body>
+</html>
